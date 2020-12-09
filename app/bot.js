@@ -4,6 +4,8 @@ const Discord = require('discord.js');
 const prefix = '!';
 const commands = require('./scripts/commandsReader')(prefix);
 
+console.log(commands);
+
 const client = new Discord.Client();
 
 client.on('ready', () => {
@@ -11,7 +13,7 @@ client.on('ready', () => {
 });
 
 client.on('message', (msg) => {
-  if (msg.author.bot) return console.log('It is my message ~bot');
+  if (msg.author.bot) return;
   const args = msg.content.split(' ');
 
   if (commands[args[0]]) commands[args[0]](client, msg);
