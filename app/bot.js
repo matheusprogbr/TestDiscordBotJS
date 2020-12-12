@@ -4,6 +4,8 @@ const Discord = require('discord.js');
 const { prefix, activity } = require('./config.json');
 const commands = require('./scripts/commandsReader')(prefix);
 const unknownCommand = require('./scripts/unknownCommand');
+const memberAdd = require('./scripts/memberAdd');
+const memberRemove = require('./scripts/memberRemove');
 
 console.log(commands);
 
@@ -23,5 +25,9 @@ client.on('message', (msg) => {
   if (commands[args[0]]) commands[args[0]](client, msg);
   else if (args[0].startsWith(prefix)) unknownCommand(client, msg);
 });
+
+client.on('guildMemberAdd', memberAdd);
+
+client.on('guildMemberRemove', memberRemove);
 
 client.login(process.env.BOT_TOKEN);
